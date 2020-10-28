@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN">
+
+    <appenders>                                                                                // c аппендерами понятно,это указатель на источник вывода
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>     //с паттерном вывода тоже ясно.дата,поток,само сообщение и перевод каретки.
+        </Console>
+
+        <File name="SearchFile" fileName="logs/search.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Filters>
+                <MarkerFilter marker="INPUT_HISTORY"/>
+            </Filters>
+        </File>
+        <File name="InputErrorsFile" fileName="logs/input_errors.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Filters>
+                <MarkerFilter marker="INVALID_STATIONS"/>
+            </Filters>
+        </File>
+        <File name="ExceptionFile" fileName="logs/exceptions.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Filters>
+                <MarkerFilter marker="EXCEPTIONS_HISTORY"/>
+            </Filters>
+        </File>
+
+    </appenders>
+                                                                    //а вот тут пару вопросов.
+    <loggers>                                                       // рут логгер - это дефолтный логер(у нас на уровне инфо), но могут быть логгеры по классу\пакету ?
+        <root level="info">
+            <appender-ref ref="SearchFile" />           // а тут мы настраиваем фактические значения для наших аппендеров.
+            <appender-ref ref="InputErrorsFile"/>
+            <appender-ref ref="ExceptionFile"/>
+        </root>
+    </loggers>
+
+</configuration>
